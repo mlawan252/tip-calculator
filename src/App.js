@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Amount from './components/Amount';
+import Reset from './components/Reset';
+import Result from './components/Result';
+import Service from './components/Service';
 
 function App() {
+  const [amount, setAmount] = useState('');
+  const [selectedInput, setSelectedInput] = useState('')
+  const [friendInput, setFriendInput] = useState('')
+  
+  function handleReset(){
+    setAmount('')
+    setSelectedInput('')
+    setFriendInput('')
+}
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Amount setAmount={setAmount} amount={amount}/>
+      <Service percentage={selectedInput} onInput={setSelectedInput}>How did you like the service</Service>
+      <Service percentage={friendInput} onInput={setFriendInput}>How does your friend like the service</Service>
+      <Result amount = {amount} selectedInput={selectedInput} friendInput={friendInput}/>
+      <Reset onHandleReset={handleReset} />
     </div>
   );
 }
